@@ -1,0 +1,11 @@
+name = "projects"
+main = "build/index.js"
+compatibility_date = "2026-06-07"
+
+[build]
+command = "cargo install -q \"worker-build@^0.8\" && worker-build --release"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "projects_tasks"
+database_id = "7e4d9b33-eaff-49a6-b4aa-cf4546d7c4b5"

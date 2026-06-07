@@ -1,0 +1,15 @@
+[package]
+name = "projects"
+version = "0.1.0"
+edition = "2021"
+authors = ["ashupednekar <ashupednekar49@gmail.com>"]
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+worker = { version = "0.8", features = ["http", "axum", "d1"] }
+worker-macros = { version = "0.8", features = ["http"] }
+axum = { version = "0.8", default-features = false, features = ["json"] }
+serde = { version = "1", features = ["derive"] }
+tower-service = "0.3.3"
