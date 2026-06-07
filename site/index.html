@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Projects Terminal</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="workspace" aria-label="Projects workspace">
+        <header class="topbar">
+          <div class="window-controls" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <div class="brand">
+            <span class="prompt">~/projects</span>
+            <h1>taskctl</h1>
+          </div>
+
+          <div class="view-toggle" role="tablist" aria-label="Project view">
+            <button class="toggle-button is-active" type="button" role="tab" aria-selected="true" data-view-button="wheel">
+              <span class="icon" aria-hidden="true">◌</span>
+              Wheel
+            </button>
+            <button class="toggle-button" type="button" role="tab" aria-selected="false" data-view-button="kanban">
+              <span class="icon" aria-hidden="true">▦</span>
+              Kanban
+            </button>
+          </div>
+        </header>
+
+        <section class="status-strip" aria-label="Task summary">
+          <div class="metric">
+            <span class="metric-label">Pending</span>
+            <strong data-count="pending">0</strong>
+          </div>
+          <div class="metric">
+            <span class="metric-label">WIP</span>
+            <strong data-count="wip">0</strong>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Done</span>
+            <strong data-count="done">0</strong>
+          </div>
+          <div class="metric metric-wide">
+            <span class="metric-label">Selected</span>
+            <strong data-selected-task>spin required</strong>
+          </div>
+        </section>
+
+        <section class="view-panel is-visible" data-view="wheel" aria-label="Wheel task picker">
+          <div class="wheel-grid">
+            <div class="wheel-stage">
+              <div class="pointer" aria-hidden="true"></div>
+              <button class="task-wheel" type="button" aria-label="Spin task wheel" data-spin>
+                <span class="wheel-segments" aria-hidden="true" data-wheel-segments></span>
+                <span class="wheel-label">SPIN</span>
+              </button>
+              <div class="wheel-ring" aria-hidden="true"></div>
+            </div>
+
+            <aside class="terminal-panel" aria-live="polite">
+              <div class="terminal-title">
+                <span>selection.log</span>
+                <span data-spin-status>idle</span>
+              </div>
+              <div class="selected-card" data-selected-card>
+                <span class="eyebrow">no task selected</span>
+                <h2>Spin the wheel</h2>
+                <p>The wheel chooses from pending and active WIP tasks.</p>
+              </div>
+              <div class="selected-actions" data-selected-actions></div>
+              <div class="command-row">
+                <button class="primary-action" type="button" data-spin>
+                  Spin wheel
+                </button>
+                <button class="ghost-action" type="button" data-create-open>
+                  New task
+                </button>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="view-panel" data-view="kanban" aria-label="Kanban board">
+          <div class="kanban-board" data-board></div>
+        </section>
+      </section>
+    </main>
+
+    <template id="task-template">
+      <article class="task-card">
+        <div class="task-card-top">
+          <span class="task-id"></span>
+          <span class="task-priority"></span>
+        </div>
+        <h3></h3>
+        <p></p>
+        <div class="task-tags"></div>
+        <div class="task-actions"></div>
+      </article>
+    </template>
+
+    <dialog class="task-modal" data-create-dialog aria-labelledby="create-task-title">
+      <form class="task-form" data-create-form>
+        <div class="modal-title">
+          <span class="eyebrow">tasks.create</span>
+          <h2 id="create-task-title">New task</h2>
+        </div>
+
+        <label class="field-label">
+          <span>Title</span>
+          <input class="field-input" name="title" type="text" maxlength="120" autocomplete="off" required data-create-title />
+        </label>
+
+        <label class="field-label">
+          <span>Description</span>
+          <textarea class="field-input" name="description" rows="4" maxlength="420" data-create-description></textarea>
+        </label>
+
+        <label class="checkbox-row">
+          <input name="completed" type="checkbox" data-create-completed />
+          <span>Done</span>
+        </label>
+
+        <p class="form-error" role="alert" data-create-error></p>
+
+        <div class="modal-actions">
+          <button class="ghost-action" type="button" data-create-close>Cancel</button>
+          <button class="primary-action" type="submit" data-create-submit>Create task</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>
